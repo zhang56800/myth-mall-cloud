@@ -25,7 +25,7 @@ public class TokenToAdminUserMethodArgumentResolver implements HandlerMethodArgu
 
 
     @Resource
-    private  MythAdminUserTokenMapper mythAdminUserTokenMapper;
+    private MythAdminUserTokenMapper mythAdminUserTokenMapper;
 
     public TokenToAdminUserMethodArgumentResolver() {
     }
