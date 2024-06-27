@@ -1,6 +1,6 @@
 
 
-package com.myth.mall.cloud.until;
+package com.myth.mall.cloud.exception;
 
 public class MythMallException extends RuntimeException {
 

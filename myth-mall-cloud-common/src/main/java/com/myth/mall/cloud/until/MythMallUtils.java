@@ -1,4 +1,4 @@
-package ltd.user.cloud.newbee.util;
+package com.myth.mall.cloud.until;
 
 import org.springframework.util.StringUtils;
 

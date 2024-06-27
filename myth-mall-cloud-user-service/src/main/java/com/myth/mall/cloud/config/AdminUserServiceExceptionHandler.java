@@ -8,8 +8,8 @@
  */
 package com.myth.mall.cloud.config;
 
-import com.myth.mall.cloud.until.MythMallException;
-import com.myth.mall.cloud.until.Result;
+import com.myth.mall.cloud.dto.Result;
+import com.myth.mall.cloud.exception.MythMallException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;

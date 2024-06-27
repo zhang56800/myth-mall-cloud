@@ -1,4 +1,4 @@
-package com.myth.mall.cloud.until;
+package com.myth.mall.cloud.dto;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

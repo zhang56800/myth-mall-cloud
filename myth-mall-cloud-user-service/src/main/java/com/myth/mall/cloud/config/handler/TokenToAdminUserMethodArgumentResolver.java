@@ -11,7 +11,7 @@ package com.myth.mall.cloud.config.handler;
 import com.myth.mall.cloud.config.annotation.TokenToAdminUser;
 import com.myth.mall.cloud.dao.MythAdminUserTokenMapper;
 import com.myth.mall.cloud.entity.AdminUserToken;
-import com.myth.mall.cloud.until.MythMallException;
+import com.myth.mall.cloud.exception.MythMallException;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;

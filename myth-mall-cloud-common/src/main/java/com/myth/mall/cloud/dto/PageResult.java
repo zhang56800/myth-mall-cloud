@@ -1,4 +1,4 @@
-package com.myth.mall.cloud.until;
+package com.myth.mall.cloud.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 
