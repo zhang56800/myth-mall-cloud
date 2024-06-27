@@ -9,16 +9,18 @@
 package com.myth.mall.cloud.service.impl;
 
 import com.myth.mall.cloud.dao.AdminUserMapper;
-import com.myth.mall.cloud.dao.MythAdminUserTokenMapper;
 import com.myth.mall.cloud.entity.AdminUser;
 import com.myth.mall.cloud.entity.AdminUserToken;
 import com.myth.mall.cloud.service.AdminUserService;
 import com.myth.mall.cloud.until.NumberUtil;
 import com.myth.mall.cloud.until.SystemUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class AdminUserServiceImpl implements AdminUserService {
@@ -26,8 +28,8 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Resource
     private AdminUserMapper adminUserMapper;
 
-    @Resource
-    private MythAdminUserTokenMapper mythAdminUserTokenMapper;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public String login(String userName, String password) {
@@ -35,32 +37,15 @@ public class AdminUserServiceImpl implements AdminUserService {
         if (loginAdminUser != null) {
             //登录后即执行修改token的操作
             String token = getNewToken(System.currentTimeMillis() + "", loginAdminUser.getAdminUserId());
-            AdminUserToken adminUserToken = mythAdminUserTokenMapper.selectByPrimaryKey(loginAdminUser.getAdminUserId());
-            //当前时间
-            Date now = new Date();
-            //过期时间
-            Date expireTime = new Date(now.getTime() + 2 * 24 * 3600 * 1000);//过期时间 48 小时
-            if (adminUserToken == null) {
-                adminUserToken = new AdminUserToken();
-                adminUserToken.setAdminUserId(loginAdminUser.getAdminUserId());
-                adminUserToken.setToken(token);
-                adminUserToken.setUpdateTime(now);
-                adminUserToken.setExpireTime(expireTime);
-                //新增一条token数据
-                if (mythAdminUserTokenMapper.insertSelective(adminUserToken) > 0) {
-                    //新增成功后返回
-                    return token;
-                }
-            } else {
-                adminUserToken.setToken(token);
-                adminUserToken.setUpdateTime(now);
-                adminUserToken.setExpireTime(expireTime);
-                //更新
-                if (mythAdminUserTokenMapper.updateByPrimaryKeySelective(adminUserToken) > 0) {
-                    //修改成功后返回
-                    return token;
-                }
-            }
+
+            AdminUserToken adminUserToken = new AdminUserToken();
+            adminUserToken.setAdminUserId(loginAdminUser.getAdminUserId());
+            adminUserToken.setToken(token);
+
+            ValueOperations<String,AdminUserToken> setToken = redisTemplate.opsForValue();
+            setToken.set(token,adminUserToken,2*24*60*60, TimeUnit.SECONDS);
+
+            return token;
 
         }
         return "登录失败";
@@ -94,8 +79,9 @@ public class AdminUserServiceImpl implements AdminUserService {
             if (originalPassword.equals(adminUser.getLoginPassword())) {
                 //设置新密码并修改
                 adminUser.setLoginPassword(newPassword);
-                if (adminUserMapper.updateByPrimaryKeySelective(adminUser) > 0 && mythAdminUserTokenMapper.deleteByPrimaryKey(loginUserId) > 0) {
+                if (adminUserMapper.updateByPrimaryKeySelective(adminUser) > 0 ) {
                     //修改成功且清空当前token则返回true
+                    //redisTemplate.delete(token);
                     return true;
                 }
             }
@@ -120,7 +106,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
-    public Boolean logout(Long adminUserId) {
-        return mythAdminUserTokenMapper.deleteByPrimaryKey(adminUserId) > 0;
+    public Boolean logout(String token) {
+        return redisTemplate.delete(token);
     }
 }

@@ -86,7 +86,7 @@ public class MythMallCloudAdminUserController {
     @RequestMapping(value = "/logout", method = RequestMethod.DELETE)
     public Result logout(@TokenToAdminUser AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
-        adminUserService.logout(adminUser.getAdminUserId());
+        adminUserService.logout( adminUser.getToken());
         return ResultGenerator.genSuccessResult();
     }
 }
