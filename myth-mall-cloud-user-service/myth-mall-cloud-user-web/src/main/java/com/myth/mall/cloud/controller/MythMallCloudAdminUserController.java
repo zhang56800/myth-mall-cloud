@@ -7,7 +7,7 @@ import com.myth.mall.cloud.controller.param.UpdateAdminPasswordParam;
 import com.myth.mall.cloud.dto.Result;
 import com.myth.mall.cloud.dto.ResultGenerator;
 import com.myth.mall.cloud.entity.AdminUser;
-import com.myth.mall.cloud.entity.AdminUserToken;
+import com.myth.mall.cloud.pojo.AdminUserToken;
 import com.myth.mall.cloud.service.AdminUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class MythMallCloudAdminUserController {
     @Autowired
     private AdminUserService adminUserService;
 
-    @RequestMapping(value = "/adminUser/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/users/admin/login",method = RequestMethod.POST)
     public Result<String> login(@RequestBody@Valid AdminLoginParam adminLoginParam){
         String userName = adminLoginParam.getUserName();
         String passwordMd5 = adminLoginParam.getPasswordMd5();
@@ -50,7 +50,7 @@ public class MythMallCloudAdminUserController {
     }
 
 
-    @RequestMapping(value = "/adminUser/profile", method = RequestMethod.POST)
+    @RequestMapping(value = "/users/admin/profile", method = RequestMethod.POST)
     public Result profile(@TokenToAdminUser AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
         AdminUser adminUserEntity = adminUserService.getUserDetailById(adminUser.getAdminUserId());
@@ -63,7 +63,7 @@ public class MythMallCloudAdminUserController {
         return ResultGenerator.genFailResult("无此用户数据");
     }
 
-    @RequestMapping(value = "/adminUser/password", method = RequestMethod.PUT)
+    @RequestMapping(value = "/users/admin/password", method = RequestMethod.PUT)
     public Result passwordUpdate(@RequestBody @Valid UpdateAdminPasswordParam adminPasswordParam, @TokenToAdminUser AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
         if (adminUserService.updatePassword(adminUser.getAdminUserId(), adminPasswordParam.getOriginalPassword(), adminPasswordParam.getNewPassword())) {
@@ -73,7 +73,7 @@ public class MythMallCloudAdminUserController {
         }
     }
 
-    @RequestMapping(value = "/adminUser/name", method = RequestMethod.PUT)
+    @RequestMapping(value = "/users/admin/name", method = RequestMethod.PUT)
     public Result nameUpdate(@RequestBody @Valid UpdateAdminNameParam adminNameParam, @TokenToAdminUser AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
         if (adminUserService.updateName(adminUser.getAdminUserId(), adminNameParam.getLoginUserName(), adminNameParam.getNickName())) {
@@ -83,10 +83,13 @@ public class MythMallCloudAdminUserController {
         }
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/users/admin/logout", method = RequestMethod.DELETE)
     public Result logout(@TokenToAdminUser AdminUserToken adminUser) {
         logger.info("adminUser:{}", adminUser.toString());
         adminUserService.logout( adminUser.getToken());
         return ResultGenerator.genSuccessResult();
     }
+
+
+
 }

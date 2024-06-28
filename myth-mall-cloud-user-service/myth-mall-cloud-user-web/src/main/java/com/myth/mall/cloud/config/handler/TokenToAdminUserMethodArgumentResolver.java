@@ -9,8 +9,8 @@
 package com.myth.mall.cloud.config.handler;
 
 import com.myth.mall.cloud.config.annotation.TokenToAdminUser;
-import com.myth.mall.cloud.entity.AdminUserToken;
 import com.myth.mall.cloud.exception.MythMallException;
+import com.myth.mall.cloud.pojo.AdminUserToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -42,12 +42,10 @@ public class TokenToAdminUserMethodArgumentResolver implements HandlerMethodArgu
         if (parameter.getParameterAnnotation(TokenToAdminUser.class) instanceof TokenToAdminUser) {
             String token = webRequest.getHeader("token");
             if (null != token && !"".equals(token) && token.length() == 32) {
-                ValueOperations<String,AdminUserToken> getToken = redisTemplate.opsForValue();
+                ValueOperations<String, AdminUserToken> getToken = redisTemplate.opsForValue();
                 AdminUserToken adminUserToken = getToken.get(token);
                 if (adminUserToken == null) {
                     MythMallException.fail("ADMIN_NOT_LOGIN_ERROR");
-                } else if (adminUserToken.getExpireTime().getTime() <= System.currentTimeMillis()) {
-                    MythMallException.fail("ADMIN_TOKEN_EXPIRE_ERROR");
                 }
                 return adminUserToken;
             } else {

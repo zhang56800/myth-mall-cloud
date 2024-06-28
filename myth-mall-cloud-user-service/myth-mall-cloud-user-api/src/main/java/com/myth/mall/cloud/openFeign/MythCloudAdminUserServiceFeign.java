@@ -1,5 +1,6 @@
 package com.myth.mall.cloud.openFeign;
 
+import com.myth.mall.cloud.dto.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,5 +17,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface MythCloudAdminUserServiceFeign {
 
     @GetMapping(value = "/admin/{token}")
-    String getAdminUserByToken(@PathVariable(value = "token") String token);
+    Result getAdminUserByToken(@PathVariable(value = "token") String token);
 }

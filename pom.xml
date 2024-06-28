@@ -26,6 +26,7 @@
         <module>myth-mall-cloud-gateway-admin</module>
         <module>myth-mall-cloud-user-service</module>
         <module>myth-mall-cloud-common</module>
+        <module>myth-mall-cloud-goods-service</module>
     </modules>
 
     <dependencyManagement>

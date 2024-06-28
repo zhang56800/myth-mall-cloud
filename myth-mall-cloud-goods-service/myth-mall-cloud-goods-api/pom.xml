@@ -3,30 +3,27 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>myth-mall-cloud-user-service</artifactId>
+        <artifactId>myth-mall-cloud-goods-service</artifactId>
         <groupId>org.myth.cloud</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>myth-mall-cloud-user-api</artifactId>
-    <description>用户服务openfeign</description>
+    <name>myth-mall-cloud-goods-api</name>
+    <description>商品服务openfeign</description>
     <packaging>jar</packaging>
+    <artifactId>myth-mall-cloud-goods-api</artifactId>
 
     <properties>
-        <java.version>1.8</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.myth.cloud</groupId>
-            <artifactId>myth-mall-cloud-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 </project>

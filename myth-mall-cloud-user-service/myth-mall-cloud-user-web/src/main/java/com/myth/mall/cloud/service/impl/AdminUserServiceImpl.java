@@ -10,7 +10,7 @@ package com.myth.mall.cloud.service.impl;
 
 import com.myth.mall.cloud.dao.AdminUserMapper;
 import com.myth.mall.cloud.entity.AdminUser;
-import com.myth.mall.cloud.entity.AdminUserToken;
+import com.myth.mall.cloud.pojo.AdminUserToken;
 import com.myth.mall.cloud.service.AdminUserService;
 import com.myth.mall.cloud.until.NumberUtil;
 import com.myth.mall.cloud.until.SystemUtil;

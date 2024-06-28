@@ -8,7 +8,7 @@
  */
 package com.myth.mall.cloud.config;
 
-import com.myth.mall.cloud.entity.AdminUserToken;
+import com.myth.mall.cloud.pojo.AdminUserToken;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;

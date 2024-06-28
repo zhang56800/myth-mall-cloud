@@ -6,19 +6,15 @@
  * Copyright (c) 2022 程序员十三 all rights reserved.
  * 版权所有，侵权必究！
  */
-package com.myth.mall.cloud.entity;
+package com.myth.mall.cloud.pojo;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.io.Serializable;
 
 @Data
-public class AdminUserToken {
+public class AdminUserToken implements Serializable {
     private Long adminUserId;
 
     private String token;
-
-    private Date updateTime;
-
-    private Date expireTime;
 }

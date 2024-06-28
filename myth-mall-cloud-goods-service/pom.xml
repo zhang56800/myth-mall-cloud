@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>myth-mall-cloud</artifactId>
+        <groupId>org.myth.cloud</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>myth-mall-cloud-goods-service</artifactId>
+    <packaging>pom</packaging>
+    <name>myth-mall-cloud-goods-service</name>
+    <description>商品模块</description>
+
+
+
+
+    <modules>
+        <module>myth-mall-cloud-goods-api</module>
+        <module>myth-mall-cloud-goods-web</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+</project>
