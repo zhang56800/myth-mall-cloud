@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class NewBeeMallGoods {
+public class MythMallGoods {
     private Long goodsId;
 
     private String goodsName;

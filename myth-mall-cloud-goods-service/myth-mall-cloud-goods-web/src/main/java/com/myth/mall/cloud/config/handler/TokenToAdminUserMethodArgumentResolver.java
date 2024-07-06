@@ -6,6 +6,7 @@ import com.myth.mall.cloud.entity.LoginAdminUser;
 import com.myth.mall.cloud.exception.MythMallException;
 import com.myth.mall.cloud.openFeign.MythCloudAdminUserServiceFeign;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -29,6 +30,10 @@ import java.util.LinkedHashMap;
 public class TokenToAdminUserMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Autowired
+    @Lazy
+    //在feign初始化时，每个service都会产生一个feignclient，在此过程中
+    //初始化过程中，似乎会刷新context，而刷新过程中又会初始化MVCConfiguration
+    //可以删掉懒加载注解，查看log找Debug断点再详细查看
     MythCloudAdminUserServiceFeign mythCloudAdminUserService;
 
 

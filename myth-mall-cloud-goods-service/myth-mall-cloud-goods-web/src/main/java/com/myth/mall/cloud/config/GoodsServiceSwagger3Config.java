@@ -1,6 +1,7 @@
 
 package com.myth.mall.cloud.config;
 
+import com.myth.mall.cloud.entity.LoginAdminUser;
 import com.myth.mall.cloud.pojo.AdminUserToken;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,13 +22,13 @@ import java.util.List;
 
 @Configuration
 @EnableOpenApi
-public class AdminUserSwagger3Config{
+public class GoodsServiceSwagger3Config{
 
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
-                .ignoredParameterTypes(AdminUserToken.class)
+                .ignoredParameterTypes(AdminUserToken.class, LoginAdminUser.class)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.myth.mall.cloud.controller"))
                 .paths(PathSelectors.any())
@@ -50,9 +51,9 @@ public class AdminUserSwagger3Config{
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("myth-mall-cloud-user-service接口文档")
+                .title("myth-mall-cloud-goods-service接口文档")
                 .description("swagger接口文档")
-                .version("3.0")
+                .version("2.0")
                 .build();
     }
 }
