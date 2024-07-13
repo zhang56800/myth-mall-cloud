@@ -27,6 +27,8 @@
         <module>myth-mall-cloud-user-service</module>
         <module>myth-mall-cloud-common</module>
         <module>myth-mall-cloud-goods-service</module>
+        <module>myth-mall-cloud-recommend-service</module>
+
     </modules>
 
     <dependencyManagement>
